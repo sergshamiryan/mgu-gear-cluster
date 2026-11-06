@@ -1,0 +1,55 @@
+{
+  "id": "gear_cluster",
+  "title": "Gear on Cluster",
+  "description": "Shows the engaged gear (D1-D8, R, N, P) on the instrument cluster",
+  "version": "1.0.0",
+  "vendor": "custom",
+  "loggingId": "OAG1",
+  "iconGlyph": "D1",
+
+  "_comment_signals": "Gear comes from VehicleInformation (same fields Redline uses). rpm+speed feed the GearGuess fallback for cars that don't broadcast the engaged gear.",
+  "signals": {
+    "de.bmw.infrastructure.VehicleInformation": {
+      "statusGearboxDrive": "s",
+      "DataPowerTrain2": "s"
+    },
+    "de.bmw.infotainment.vehicle.CDS": {
+      "statusEngineSpeed2": "rs"
+    },
+    "de.bmw.infotainment.vehicle.Vehicle2": {
+      "statusCarSpeed2": "rs"
+    }
+  },
+
+  "screens": [
+    {
+      "name": "MAIN",
+      "kind": "canvas",
+      "title": "Gear on Cluster",
+      "buttons": [
+        ["BTN_ACTION", "Show now"],
+        ["BTN_SETTINGS", "Settings"]
+      ]
+    }
+  ],
+
+  "settings": [
+    {"key": "enabled", "label": "Show gear on cluster", "type": "bool", "default": true},
+    {"key": "prefix", "label": "Style", "type": "choice", "default": "d",
+     "options": [["d", "D1, D2, ..."], ["num", "1, 2, ..."]]},
+    {"key": "size", "label": "Size", "type": "choice", "default": "medium",
+     "options": [["small", "Small"], ["medium", "Medium"], ["large", "Large"]]},
+    {"key": "position", "label": "Position", "type": "choice", "default": "lower-centre",
+     "options": [["lower-centre", "Lower centre"], ["centre", "Centre"], ["upper-centre", "Upper centre"], ["lower-right", "Lower right"], ["lower-left", "Lower left"]]},
+    {"key": "colour", "label": "Colour", "type": "choice", "default": "white",
+     "options": [["white", "White"], ["red", "M Red"], ["amber", "Amber"], ["green", "Green"], ["blue", "Blue"]]},
+    {"key": "target", "label": "Where on the cluster", "type": "choice", "default": "map",
+     "options": [["map", "Cluster centre (map area)"], ["hud", "Head-up display"], ["panel", "Cluster panel"]]},
+    {"key": "contend", "label": "Show over the stock cluster", "type": "bool", "default": true},
+    {"key": "panel", "label": "Dark panel behind the text", "type": "bool", "default": false},
+    {"key": "blend", "label": "Background", "type": "choice", "default": "opaque",
+     "options": [["opaque", "Opaque (black, hides map behind it)"], ["transparent", "Transparent (experimental)"]]},
+    {"key": "demo", "label": "Demo data", "type": "choice", "default": "auto",
+     "options": [["auto", "Auto"], ["on", "Always"], ["off", "Never"]]}
+  ]
+}
